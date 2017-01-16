@@ -240,7 +240,8 @@ d3.gantt = function () {
             .attr("class",
                 function (d) {
                     var statusClass = taskStatus[d.status] || "bar";
-                    return statusClass + onClickBar ? "clickable" : "";
+                    var clickable = onClickBar ? "clickable" : "";
+                    return statusClass + clickable;
                 })
             .style("fill", function (d) { return d.color; })
             // .attr("y", 0)
@@ -307,7 +308,8 @@ d3.gantt = function () {
             .attr("class",
                 function (d) {
                     var statusClass = taskStatus[d.status] || "bar";
-                    return statusClass + onClickBar ? "clickable" : "";
+                    var clickable = onClickBar ? "clickable" : "";
+                    return statusClass + clickable;
                 })
             .style("fill", function (d) { return d.color; });
         rect
