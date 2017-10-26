@@ -29,6 +29,10 @@ d3.gantt = function () {
     var minBarHeight = 60;
     var maxBarHeight = 120;
     var onClickBar = null;
+    
+    var tooltipFormatStartDate = function (task) { return task.startDate; };
+    var tooltipFormatEndDate = function (task) { return task.endDate; };
+    var tooltipValueFormat = function (task) { return task.startDate - task.endDate };
 
     var keyFunction = function (d) { return d.startDate + d.taskName + d.endDate; };
     var rectTransform = function (d) {
@@ -261,9 +265,9 @@ d3.gantt = function () {
                 function (x) {
                     tooltipTitle
                         .html(x.name ? x.name : x.taskName);
-                    startTd.html(format(moment(x.startDate).toDate()));
-                    endTd.html(format(moment(x.endDate).toDate()));
-                    tooltipValue.html(moment.duration(moment(x.endDate).diff(moment(x.startDate))).format("hh:mm"));
+                    startTd.html(format(tooltipFormatStartDate(x)));
+                    endTd.html(format(tooltipFormatEndDate(x)));
+                    tooltipValue.html(tooltipValueFormat(x));
                     tooltip
                         .style("top", (event.offsetY + 20) + "px")
                         .style("left", (event.offsetX + 20) + "px")
@@ -430,6 +434,27 @@ d3.gantt = function () {
         if (!arguments.length)
             return onClickBar;
         onClickBar = value;
+        return gantt;
+    };
+
+    gantt.tooltipFormatStartDate = function (callback) {
+        if (!arguments.length)
+            return tooltipFormatStartDate;
+        tooltipFormatStartDate = callback;
+        return gantt;
+    };
+
+    gantt.tooltipFormatEndDate = function (callback) {
+        if (!arguments.length)
+            return tooltipFormatEndDate;
+            tooltipFormatEndDate = callback;
+        return gantt;
+    };
+
+    gantt.tooltipValueFormat = function (callback) {
+        if (!arguments.length)
+            return tooltipValueFormat;
+            tooltipValueFormat = callback;
         return gantt;
     };
 
