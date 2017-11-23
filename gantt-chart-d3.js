@@ -265,8 +265,8 @@ d3.gantt = function () {
                 function (x) {
                     tooltipTitle
                         .html(x.name ? x.name : x.taskName);
-                    startTd.html(format(tooltipFormatStartDate(x)));
-                    endTd.html(format(tooltipFormatEndDate(x)));
+                    startTd.html(tooltipFormatStartDate(x));
+                    endTd.html(tooltipFormatEndDate(x));
                     tooltipValue.html(tooltipValueFormat(x));
                     tooltip
                         .style("top", (event.offsetY + 20) + "px")
